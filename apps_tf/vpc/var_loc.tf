@@ -5,7 +5,7 @@ Local Variables
 variable "loc" {
   default = {
     name    = "var_loc"  # May or may not be same as deployment
-    account = "863662138515"
+    account = "383895580391"
     region  = "ap-south-1"
     role    = ""    # IAM Role used  to deploy AWS Resources
 

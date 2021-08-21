@@ -5,19 +5,18 @@ Specifications
 variable "specrds_rds" {
   default = {
     name                 = "" # rds instance name 
-    class                = "db.m5.large"
-    engine               = "mssql"
-    engine_version       = "SQL Server 2019"
-    major_engine_version = "5.7"
-    family               = "mysql5.7"
+    class                = "db.t2.medium"
+    engine               = "sqlserver-ex"
+    engine_version       = "15.00.4073.23.v1"
+    major_engine_version = "15.00"
+    family               = "sqlserver-ex-15.0"
     user                 = "master"
     pass                 = "useonceandchange"
-    backup_retention     = 7                     # Integer for number of days
+    backup_retention     = 0                     # Integer for number of days
     maint_window         = "sat:09:05-sat:10:05" # Time span in UTC> ddd:HH:MM-ddd:HH:MM
-    storage              = 1500
-    max                  = 3000
-    storage_type         = "io1"
-    iops                 = 6000
-    encrypt              = true
+    allocated_storage    = 20
+    max_allocated_storage = 100
+    storage_type         = "gp2"
+    encrypt              = false
   }
 }

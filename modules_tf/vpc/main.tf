@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "nat" {
 }
 
 resource "aws_eip" "nat" {
-  count = length(var.loc_azs)
+  count = length(var.nat_loc_azs)
   vpc   = true
   
   tags = {
@@ -252,7 +252,7 @@ resource "aws_subnet" "data" {
   cidr_block        = var.data_subnets[count.index]
 
   tags = {
-    Name        = "EU: Data Z${count.index} ${var.loc["id"]}" #use join function to create the name 
+    Name        = "SN: Data Z${count.index} ${var.loc["id"]}" #use join function to create the name 
     Expire      = var.loc["expire"]
     # Contact Information
     Owner         = var.loc["owner"]

@@ -23,7 +23,7 @@
   inst_max_storage         = var.specrds_rds["max_storage"]
   inst_deletion_protection = var.specrds_rds["deletion_protection"]
 
-  ## MySQL
+  ## MSSQL
   inst_engine               = var.specrds_rds["engine"]
   inst_engine_version       = var.specrds_rds["engine_version"]
   inst_major_engine_version = var.specrds_rds["major_engine_version"]
@@ -35,7 +35,7 @@
   db_pref_maint_window = var.specrds_rds["maint_window"]
   multi_az             = true
   minor_update         = false
-
+ 
   security_group     = [] #use data lookups to fetch security groups
   db_parameter_group = aws_db_parameter_group.rds_param_group.id
 
@@ -53,7 +53,7 @@ resource "aws_db_instance" "rds" {
   storage_encrypted     = var.specrds_rds["encrypt"]
   max_allocated_storage = var.specrds_rds["max"]
 
-  #mysql
+  #mssql
   engine         = var.specrds_rds["engine"]
   engine_version = var.specrds_rds["engine_version"]
   instance_class = var.specrds_rds["class"]
@@ -76,12 +76,12 @@ resource "aws_db_instance" "rds" {
   monitoring_interval  = 60 # setting it to 0 will disable enhanced monitoring
   monitoring_role_arn  = data.aws_iam_role.rds-monitoring.arn
 
-  multi_az                     = true
+  multi_az                     = false
   auto_minor_version_upgrade   = false
   copy_tags_to_snapshot        = true
   final_snapshot_identifier    = join("-", [var.specrds_rds["name"], "final"])
   skip_final_snapshot          = false
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   tags = {
     Name          = join("-", [var.loc["group"], var.specrds_rds["name"]])
@@ -111,7 +111,7 @@ resource "aws_db_option_group" "rds" {
 
 resource "aws_db_parameter_group" "rds" {
   name   = join("-", ["pg", var.specrds_rds["name"], var.loc["id"]])
-  family = "mysql${var.specrds_rds["major_engine_version"]}"
+  family = "mssql${var.specrds_rds["major_engine_version"]}"
 
   # character_set_client = utf8mb4
   parameter {
